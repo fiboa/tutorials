@@ -26,6 +26,17 @@
 8. Show specific columns.Can be used multiple times. Add e.g. `-c id -c area` to show only the columns id and area.
 9. You could also load the GeoParquet file into QGIS, but it won’t give you information about fiboa version and extensions.
 
+## fiboa in a notebook
+
+We can also use the Python code that powers the CLI to run some analysis in a Jupyter Notebook.
+This shows the advantage of fiboa. You can now work across multiple datasets and analyse them easily.
+
+- [Open the Jupyter Notebook](./load-fiboa.ipynb)
+
+**NOTE:** The fiboa CLI Python code is not really a public API or library yet.
+The imports and methods may change at any time.
+This is a proof-of-concept and not really meant for production use cases yet!
+
 ## fiboa validate
 
 1. Validates GeoJSON or GeoParquet files according to the schemas, including extensions.
