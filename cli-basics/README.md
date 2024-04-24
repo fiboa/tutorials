@@ -1,8 +1,9 @@
 # Working with fiboa CLI
 
 ## Intro & Setup
+
 1. You will need to have **Python 3.9** or any later version installed.
-2. Run `pip install fiboa-cli` in the CLI to install the validator.
+2. Run `pip install fiboa-cli` in the CLI to install the tool.
    You need version **0.3.6** for this tutorial.
 3. Try running `fiboa` in the CLI to test whether it works.
 4. Add e.g. `--help` to show documentation for all options.
@@ -113,6 +114,7 @@ This is a proof-of-concept and not really meant for production use cases yet!
 5. We can compare the resulting files now. The sort of the properties has changed, but that doesn’t matter. And it added a link to the collection metadata. But everything else is exactly the same.
 
 ## Other tutorials
+
 - [Write a converter with fiboa CLI](../cli-convert/README.md) (April, 25th). There we'll use:
   - `fiboa convert`
 - [How to create an extension](../create-extension/README.md) (April, 29th). There we'll use:
