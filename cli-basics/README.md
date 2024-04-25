@@ -3,13 +3,12 @@
 ## Intro & Setup
 
 1. You will need to have **Python 3.9** or any later version installed.
-2. Run `pip install fiboa-cli` in the CLI to install the tool.
-   You need version **0.3.6** for this tutorial.
-3. Try running `fiboa` in the CLI to test whether it works.
-4. Add e.g. `--help` to show documentation for all options.
-    This works for all commands.
+2. Run `pip install "fiboa-cli>=0.3.6"` in the CLI to install the tool.
+   You need version **0.3.6** or later for this tutorial.
+3. Try running `fiboa --version` in the CLI to test whether it works.
+4. Run `fiboa --help` to show documentation for all options.
+    This works also for individual commands.
     Examples:
-   - `fiboa --help`
    - `fiboa describe --help`
    - `fiboa validdate --help`
 
