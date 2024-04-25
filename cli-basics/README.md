@@ -101,8 +101,8 @@ This is a proof-of-concept and not really meant for production use cases yet!
 
 ## fiboa create-geojson
 
-1. If you want to go the other way around and create GeoJSON from GeoParquet, this is also possible. We could just try to extract the Features (and Collection) from the GeoParquet file we just created:
-    - `fiboa create-geoparquet ./features -o test.parquet -c ./features/collection.json`
+1. If you want to go the other way around and create GeoJSON from GeoParquet, this is also possible. We could just try to extract the Features (and Collection) from the GeoParquet file `test.parquet` we just created to the folder `new`:
+    - `fiboa create-geojson test.parquet -o ./new`
 
 2. That’s hard to read, I want the files to be better formatted, so I add `-i 2`
 

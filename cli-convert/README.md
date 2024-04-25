@@ -132,6 +132,7 @@ Most of the information that we'll use here are coming directly from this survey
           # The list of ID that were used in the previous years is a string separated by comma, sometimes including spaces.
           # It feels much more natural to store this as an array of strings.
           'FBI_VJ': lambda column: column.str.split(re.compile(r'\s*,\s*'), regex = True),
+          # Convert from the German time format (day dot month dot year) to datetime objects
           'GEO_UPDAT': lambda column: pd.to_datetime(column, format = "%d.%m.%Y", utc = True)
       }
       ```
