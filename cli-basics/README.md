@@ -1,5 +1,8 @@
 # Working with fiboa CLI
 
+**Note:** This tutorial is also covered in a video:
+<https://www.youtube.com/watch?v=_5HKsw8OvF0&list=PLENrKR4uOfvXH-bDf1ornXgO6NdEL25ZS&index=2>
+
 ## Intro & Setup
 
 1. You will need to have **Python 3.9** or any later version installed.

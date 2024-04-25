@@ -1,5 +1,8 @@
 # Convert custom data with fiboa CLI
 
+**Note:** This tutorial is also covered in a video:
+<https://www.youtube.com/watch?v=-SUDzug29Cg&list=PLENrKR4uOfvXH-bDf1ornXgO6NdEL25ZS&index=3>
+
 This tutorial shows how to convert tabular/columnar datasets (e.g. Shapefiles, GeoPackages)
 into a fiboa-compliant GeoParquet file.
 
