@@ -1,4 +1,4 @@
-# Convert custom data with fiboa CLI
+# Converting custom data with fiboa CLI
 
 **Note:** This tutorial is also covered in a video:
 <https://www.youtube.com/watch?v=-SUDzug29Cg&list=PLENrKR4uOfvXH-bDf1ornXgO6NdEL25ZS&index=3>

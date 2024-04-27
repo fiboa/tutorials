@@ -1,4 +1,4 @@
-# How to create a fiboa extension
+# Creating a fiboa extension
 
 In this tutorial we'll create a new fiboa extension from scratch and 
 make use of it in a dataset.
@@ -27,6 +27,9 @@ The field prefix is meant to be `ftr`.
 | plant_date     | date                                                         | The date when the next crop type is planned to be planted. |
 | grow_time      | number of days                                               | The rough time until the crop is harvested, in days.       |
 
+Generally, an extension should consist a small number of properties that are closely related to each other.
+Don't mix to many properties into a single extension, better split them into multiple extensions to keep the scope very specific.
+
 ## Create a new repository
 
 1. We need to create a new repository.
@@ -46,7 +49,7 @@ The field prefix is meant to be `ftr`.
 
 3. We use the fiboa CLI to [rename the placeholders in the template](https://github.com/fiboa/cli?tab=readme-ov-file#update-an-extension-template-with-new-names):
    `fiboa rename-extension . -t Future -p ftr -s fututre-extension -o fiboa`
-   *You'll need Python 3.9 or later and fiboa CLI 0.3.2 or later installed!*
+   *You'll need Python 3.9 or later and fiboa CLI 0.3.8 or later installed!*
    You can check the changes and commit the changes back to GitHub.
 
 ## Write the extension
