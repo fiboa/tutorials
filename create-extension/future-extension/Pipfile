@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fiboa-cli = ">=0.3"
+pymarkdownlnt = ">=0.9"
+
+[scripts]
+test-docs = "pymarkdown -d md024,md013 scan ."
+test-schema = "fiboa validate-schema schema/schema.yaml"
+test-geojson = "fiboa validate examples/geojson -e https://fiboa.github.io/fututre-extension/v0.1.0/schema.yaml,schema/schema.yaml --data"
+test-geoparquet = "fiboa validate examples/geoparquet -e https://fiboa.github.io/fututre-extension/v0.1.0/schema.yaml,schema/schema.yaml --data"
+create-geoparquet = "fiboa create-geoparquet examples/geojson -o examples/geoparquet/example.parquet -c examples/geojson/collection.json -e https://fiboa.github.io/fututre-extension/v0.1.0/schema.yaml,schema/schema.yaml"
