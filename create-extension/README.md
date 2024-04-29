@@ -48,7 +48,7 @@ Don't mix to many properties into a single extension, better split them into mul
    and navigate to it (e.g. `cd future-extension`) in the CLI.
 
 3. We use the fiboa CLI to [rename the placeholders in the template](https://github.com/fiboa/cli?tab=readme-ov-file#update-an-extension-template-with-new-names):
-   `fiboa rename-extension . -t Future -p ftr -s fututre-extension -o fiboa`
+   `fiboa rename-extension . -t Future -p ftr -s future-extension -o fiboa`
    *You'll need Python 3.9 or later and fiboa CLI 0.3.8 or later installed!*
    You can check the changes and commit the changes back to GitHub.
 
