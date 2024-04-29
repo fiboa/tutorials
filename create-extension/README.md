@@ -1,5 +1,8 @@
 # Creating a fiboa extension
 
+**Note:** This tutorial is also covered in a video:
+<https://www.youtube.com/watch?v=xQzZ_t5EkFI&list=PLENrKR4uOfvXH-bDf1ornXgO6NdEL25ZS&index=4>
+
 In this tutorial we'll create a new fiboa extension from scratch and 
 make use of it in a dataset.
 
@@ -9,6 +12,7 @@ The list of existing extensions:
 A list of proposed extensions:
 <https://github.com/fiboa/extensions/issues>  
 Feel free to add your ideas or take over specifying any of them!
+
 
 ## Idea for an extension
 
@@ -204,4 +208,4 @@ We can now create a GeoParquet file based on the GeoJSON, too.
 
 You can find the created extension code here: [future-extension](./future-extension/)
 **I copied the code into this repository for reference, it's not published and is not meant to be used.
-It only serves as an examples!**
+It only serves as an example!**
