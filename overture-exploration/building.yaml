@@ -1,0 +1,206 @@
+$schema: https://fiboa.github.io/schema/v0.1.0/schema.json
+# This schema doesn't require the extension fields to start with ext_
+required:
+  - id
+  - geometry
+  - bbox
+  - theme
+  - type
+  - version
+  - update_time
+properties:
+  id:
+    type: string
+    minLength: 1
+    pattern: ^(\S.*)?\S$
+  geometry:
+    type: geometry
+    geometryTypes:
+      - Polygon
+      - MultiPolygon
+  bbox:
+    type: bounding-box
+  class:
+    type: string
+    enum:
+      - residential
+      - outbuilding
+      - agricultural
+      - commercial
+      - industrial
+      - education
+      - service
+      - religious
+      - civic
+      - transportation
+      - medical
+      - entertainment
+      - military
+  has_parts:
+    type: boolean
+  theme:
+    type: string
+    enum:
+      - buildings
+  type:
+    type: string
+    enum:
+      - building
+  version:
+    type: uint32
+    minimum: 0
+  update_time:
+    type: date-time
+  sources:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items:
+      type: object
+      required:
+        - property
+        - dataset
+      additionalProperties: false
+      properties:
+        property:
+          type: string
+        dataset:
+          type: string
+        record_id:
+          type: string
+        confidence:
+          type: float
+          minimum: 0
+          maximum: 1
+  names:
+    type: object
+    required:
+      - primary
+    # additionalProperties: false
+    properties:
+      primary:
+        type: string
+        minLength: 1
+        pattern: ^(\S.*)?\S$
+      # common:
+      #   type: object
+      #   minProperties: 1
+      #   patternProperties:
+      #     '^[a-zA-Z]{2,3}(-[a-zA-Z]{4})?(-[a-zA-Z]{2})?$':
+      #       type: string
+      #       minLength: 1
+      #       pattern: ^(\S.*)?\S$
+      #   additionalProperties: false
+      rules:
+        type: array
+        minItems: 1
+        items:
+          type: object
+          required:
+            - value
+          properties:
+            between:
+              type: array
+              minItems: 2
+              maxItems: 2
+              uniqueItems: true
+              items:
+                type: float
+                minimum: 0
+                maximum: 1
+            side:
+              type: string
+              enum:
+                - left
+                - right
+            variant:
+              type: string
+              enum:
+                - common
+                - official
+                - alternate
+                - short
+            language:
+              type: string
+              pattern: '^[a-zA-Z]{2,3}(-[a-zA-Z]{4})?(-[a-zA-Z]{2})?$'
+            value:
+              type: string
+              minLength: 1
+              pattern: ^(\S.*)?\S$
+  level:
+    type: uint16
+    default: 0
+  height:
+    type: float
+    exclusiveMinimum: 0
+  num_floors:
+    type: uint8
+    exclusiveMinimum: 0
+  min_height:
+    type: float
+  min_floor:
+    type: uint8
+    exclusiveMinimum: 0
+  facade_color:
+    type: string
+  facade_material:
+    type: string
+    enum:
+      - brick
+      - cement_block
+      - clay
+      - concrete
+      - glass
+      - metal
+      - plaster
+      - plastic
+      - stone
+      - timber_framing
+      - wood
+  roof_material:
+    type: string
+    enum:
+      - concrete
+      - copper
+      - eternit
+      - glass
+      - grass
+      - gravel
+      - metal
+      - plastic
+      - roof_tiles
+      - slate
+      - solar_panels
+      - thatch
+      - tar_paper
+      - wood
+  roof_shape:
+    type: string
+    enum:
+      - dome
+      - flat
+      - gabled
+      - gambrel
+      - half_hipped
+      - hipped
+      - mansard
+      - onion
+      - pyramidal
+      - round
+      - saltbox
+      - sawtooth
+      - skillion
+      - spherical
+  roof_direction:
+    type: float
+    exclusiveMinimum: 0
+    exclusiveMaximum: 360
+  roof_orientation:
+    type: string
+    enum:
+      - across
+      - along
+  roof_color:
+    type: string
+  eave_height:
+    type: float
