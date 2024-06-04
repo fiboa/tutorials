@@ -3,9 +3,9 @@ $schema: https://fiboa.github.io/schema/v0.1.0/schema.json
 required:
   - id
   - geometry
-  - bbox
-  - theme
-  - type
+# Not in GeoParquet:
+# - theme
+# - type
   - version
   - update_time
 properties:
@@ -38,14 +38,15 @@ properties:
       - military
   has_parts:
     type: boolean
-  theme:
-    type: string
-    enum:
-      - buildings
-  type:
-    type: string
-    enum:
-      - building
+  # Not in GeoParquet:
+  # theme:
+  #   type: string
+  #   enum:
+  #     - buildings
+  # type:
+  #   type: string
+  #   enum:
+  #     - building
   version:
     type: uint32
     minimum: 0
@@ -76,21 +77,21 @@ properties:
     type: object
     required:
       - primary
-    # additionalProperties: false
+    additionalProperties: false
     properties:
       primary:
         type: string
         minLength: 1
         pattern: ^(\S.*)?\S$
-      # common:
-      #   type: object
-      #   minProperties: 1
-      #   patternProperties:
-      #     '^[a-zA-Z]{2,3}(-[a-zA-Z]{4})?(-[a-zA-Z]{2})?$':
-      #       type: string
-      #       minLength: 1
-      #       pattern: ^(\S.*)?\S$
-      #   additionalProperties: false
+      common:
+        type: object
+        minProperties: 1
+        patternProperties:
+          '^[a-zA-Z]{2,3}(-[a-zA-Z]{4})?(-[a-zA-Z]{2})?$':
+            type: string
+            minLength: 1
+            pattern: ^(\S.*)?\S$
+        additionalProperties: false
       rules:
         type: array
         minItems: 1
@@ -128,7 +129,7 @@ properties:
               minLength: 1
               pattern: ^(\S.*)?\S$
   level:
-    type: uint16
+    type: int16
     default: 0
   height:
     type: float
