@@ -123,9 +123,9 @@ Most of the information that we'll use here are coming directly from this survey
       ```py
       COLUMN_MIGRATIONS = {
           # Source values are either J or None. Change to boolean True and False.
-          'AFO': lambda column: column.map({'J': True}).fillna(value=False),
+          'AFO': lambda column: column.map({'J': True}).fillna(value=False).astype(bool),
           # Same as above
-          'KOND_LE': lambda column: column.map({'J': True}).fillna(value=False),
+          'KOND_LE': lambda column: column.map({'J': True}).fillna(value=False).astype(bool),
           # Source values are either Geaendert (changed) or Unveraendert (unchanged) or Neu (new).
           # As we renamed the column to "changed", the following mapping seems natural:
           # Geaendert => True
