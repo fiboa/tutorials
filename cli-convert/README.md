@@ -46,47 +46,78 @@ Most of the information that we'll use here are coming directly from this survey
 5. Copy the file `fiboa_cli/datasets/template.py` and rename it to something sensible.
    The filename will be the name that use to run the converter.
    If you name it 'xy_abc' you'll be able to run `fiboa convert xy_abc` in the CLI.
+   
 6. Open the newly created file in your favorite editor.
    You'll see a Python script with a lot of variables that should hopefully all be explained
    through the code comments.
+   
 7. Start filling the template:
     - Add two imports that we'll need later:
       ```py
       import re
       import pandas as pd
       ```
+      
+      Note: You may not need the imports for other converters.
+      
     - Set `URL` to `"https://www.geoproxy.geoportal-th.de/download-service/opendata/agrar/DGK_Thue.zip"`
       which is the download URL of the dataset we want to convert.
-    - The following variables until `EXTENSIONS` are mostly for metadata pruposes.
+      
+    - The following variables until `EXTENSIONS` are mostly for metadata purposes.
       The data provided there will be written to the Collection metadata, in our case to a STAC Collection.
       I use example data below, but you could use anything you like.
-       - `ID` => `"de_th"`
-       - `TITLE` => `"Field boundaries for Thuringia, Germany"`
-       - `DESCRIPTION` => 
-          ```md
-          """
+      
+       - `ID = "de_th"`
+      
+          Note: This should be the same as the filename (exclusing the file extension `.py`).
+      
+       - `SHORT_NAME = "Germany, Thuringia"`
+      
+          Note: This is a short name that is used in the table of converters that you get when running `fiboa converters`.
+      
+       - `TITLE = "Field boundaries for Thuringia, Germany"`
+      
+       - ```md
+          DESCRIPTION = """
           For use in the application procedure of the Integrated Administration and Control System (IACS), digital data layers are required that represent the current situation of agricultural use with the required accuracy. The field block is a contiguous agricultural area of one or more farmers surrounded by permanent boundaries. The field block thus contains information on the geographical location of the outer boundaries of the agricultural area. Reference parcels are uniquely numbered throughout Germany (Feldblockident - FBI). They also have a field block size (maximum eligible area) and a land use category.
-
+          
           The following field block types exist:
-
+          
           - Utilized agricultural area (UAA)
           - Landscape elements (LE)
           - Special use areas (SF)
           - Forest areas (FF)
-
+          
           The field blocks are classified separately according to the main land uses of arable land (`AL`), grassland (`GL`), permanent crops (`DA`, `OB`, `WB`), including agroforestry systems with an approved utilization concept and according to the BNK for no "agricultural land" (`NW`, `EF` and `PK`) and others.
-
+          
           Landscape elements (LE) are considered part of the eligible agricultural area under defined conditions. In Thuringia, these permanent conditional features are designated as a separate field block (FB) and are therefore part of the Thuringian area reference system (field block reference). They must have a clear reference to an UAA (agricultural land), i.e. they are located within an arable, permanent grassland or permanent crop area or border directly on it.
-
+          
           To produce the DGK-Lw, (official) orthophotos from the Thuringian Land Registry and Surveying Administration (TLBG) and orthophotos from the TLLLR's own aerial surveys are interpreted. The origin of this image data is 50% of the state area each year, so that up-to-date image data is available for the entire Thuringian state area every year.
           """
           ```
-       - `BBOX` => `[9.8778443239,50.2042330625,12.6531964048,51.6490678544]`
-         I've copied the bounding box from <http://osmtipps.lefty1963.de/2008/10/bundeslnder.html>
-       - `PROVIDER_NAME` = `"Thüringer Landesamt für Landwirtschaft und Ländlichen Raum"`
-       - `PROVIDER_URL` = `"https://geomis.geoportal-th.de/geonetwork/srv/ger/catalog.search#/metadata/D872F2D6-60BC-11D6-B67D-00E0290F5BA0"`
-       - `ATTRIBUTION` = `"© GDI-Th"`
-       - `LICENSE` = `"dl-de/by-2-0"`
+          
+          Note: Markdown / CommonMark can be used in the description.
+          
+       - ```python
+          PROVIDERS = [
+              {
+                  "name": "Thüringer Landesamt für Landwirtschaft und Ländlichen Raum",
+                  "url": "https://geomis.geoportal-th.de/geonetwork/srv/ger/catalog.search#/metadata/D872F2D6-60BC-11D6-B67D-00E0290F5BA0",
+                  "roles": ["producer", "licensor"]
+              }
+          ]
+          ````
+      
+          Note: Any of the following roles can be used: `host`, `producer`, `licensor`, `processor`
+          
+       - `ATTRIBUTION = "© GDI-Th"`
+      
+          Note: This is a short attribution to the data providers, for example often shown in the lower right corner of a map. This is optional.
+      
+       - `LICENSE = "dl-de/by-2-0"`
+      
+          Note: The license must be a valid [SPDX license identifier ("Short Identifier")](https://spdx.github.io/spdx-spec/v2.3/SPDX-license-list/). If your license is not on the list, please provide a link to a license instead (see the template for a code example).
+      
     - Now we actually get to the data descriptions.
       We need to create a mapping between the existing columns and the fiboa property names, identify which extensions apply, and check whether the data values need to be transformed.
       Proposed mapping for the columns:
@@ -112,8 +143,10 @@ Most of the information that we'll use here are coming directly from this survey
       The `LF` column only consists of the same value (see filters below) so we don't include
       it in the new file. If you don't list a field in the mapping, it will be omitted from the
       newly created file.
+      
     - As we've used one extension, we also need to add the extension identifier to the list of extensions:
       `EXTENSIONS = ["https://fiboa.github.io/flik-extension/v0.1.0/schema.yaml"]`
+      
     - Looking at the data values, e.g. in QGIS, or the data documentation,
       we can see that some values are stored in a way which is not intuitive or
       they use German values.
@@ -139,6 +172,7 @@ Most of the information that we'll use here are coming directly from this survey
           'GEO_UPDAT': lambda column: pd.to_datetime(column, format = "%d.%m.%Y", utc = True)
       }
       ```
+      
     - The dataset contains not just field boundaries, but also other boundaries, for example forests.
       We'll filter the dataset and only keep the rows where the `LF` column has the value `LF`.
       That's also the reason why we don't include the LF column in the mapping above.
@@ -149,18 +183,17 @@ Most of the information that we'll use here are coming directly from this survey
         "LF": lambda col: col == "LF"
       }
       ```
+      
     - We have to define schemas for the fields that are not defined in fiboa.
       Here, the keys must be the values from the `COLUMNS` dict, not the keys as before.
       This is used to choose the proper data types for the GeoParquet data.
       Unfortunately, the schemas won't be used for validation later.
-      The required fields are non-nullable.
+      The required fields don't allow `null` values.
+      
       ```py
       MISSING_SCHEMAS = {
           'required': [
-              'valid_year',
-              'area_last_year',
-              'tk10',
-              'bnk'
+              'valid_year', 'area_last_year', 'tk10', 'bnk'
           ],
           'properties': {
               'valid_year': {
@@ -170,7 +203,7 @@ Most of the information that we'll use here are coming directly from this survey
               'flik_last_year': {
                   'type': 'array',
                   'items': {
-                      # as define in the flik extension schema
+                      # as defined in the flik extension schema
                       'type': 'string',
                       'minLength': 16,
                       'maxLength': 16,
@@ -201,10 +234,12 @@ Most of the information that we'll use here are coming directly from this survey
           }
       }
       ```
+      
     - We don't need `MIGRATIONS` in this example so keep it as is.
       We also don't need to update the `convert` methods itself.
-    - Save the file
-  
+      
+    - Save the file.
+
 We've finished creating the converter and can run it.
 
 ### Run the converter and validate
@@ -221,7 +256,7 @@ We've finished creating the converter and can run it.
 9. We can inspect it:
    `fiboa describe de_th.parquet -j`
 10. We can also validate it:
-   `fiboa validate de_th.parquet --data`
+      `fiboa validate de_th.parquet --data`
 11. We can also drag&drop it into QGIS for example.
 
 ### Publish the converter
